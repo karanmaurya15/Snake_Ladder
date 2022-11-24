@@ -11,13 +11,14 @@
             int diceRoll; 
             Console.WriteLine("\nPress enter to Play the game");
             string play = Console.ReadLine();
-          
-            while (PlayerPosition >= StartPosition && PlayerPosition <= WinningPosition)
+            Console.WriteLine($"Player is at position {PlayerPosition}");
+
+            while (PlayerPosition < WinningPosition)
             {
                 Random random = new Random();
                 diceRoll = random.Next(1, 7);
-               
-                Console.WriteLine("The Position of Player is " + PlayerPosition + " " + "with a roll of " + diceRoll);
+
+                Console.WriteLine($"\nPlayer rolled number {diceRoll} on position {PlayerPosition}");
                 int option = random.Next(1, 3);
                 switch (option)
                 {
@@ -25,6 +26,11 @@
                         Console.WriteLine("\nPlayer landed on a Ladder");
                         PlayerPosition += diceRoll;
                        Console.WriteLine($"Player moves to position {PlayerPosition}");
+                        if (PlayerPosition > WinningPosition)
+                        {
+                            PlayerPosition -= diceRoll;
+                            Console.WriteLine($"Player remains in position {PlayerPosition}");
+                        }
                         break;
                     case 2:
                         Console.WriteLine("\nPlayer landed on a Snake");
@@ -37,9 +43,12 @@
                         }
                         break;
                 }
-               //  Console.WriteLine("The Position of Player is " + PlayerPosition );
+               
             }
-            Console.WriteLine("\nThe Player wins the game");
+            if (PlayerPosition == 100)
+            {
+                Console.WriteLine("==========Player Wins==========");
+            }
         }
     }
 }
